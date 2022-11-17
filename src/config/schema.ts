@@ -24,4 +24,8 @@ export class Schema {
   @IsString()
   @IsNotEmpty()
   POSTGRES_DATABASE: string;
+
+  @IsString()
+  @IsNotEmpty()
+  IPFS_AUTH_HEADER: string;
 }

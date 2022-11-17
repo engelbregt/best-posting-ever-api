@@ -7,8 +7,8 @@ import { IsString, IsOptional, IsNotEmpty, IsArray, ValidateNested } from 'class
 export class ContentDto {
   @IsString()
   @IsNotEmpty()
-  @Field(() => String, { nullable: false })
-  body: string;
+  @Field(() => String, { nullable: true })
+  body?: string; // body is optional in Entity so I made it optional in DTO
 
   @IsArray()
   @IsOptional()

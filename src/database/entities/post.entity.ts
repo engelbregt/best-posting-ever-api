@@ -1,13 +1,15 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, ManyToOne, JoinTable } from 'typeorm';
 
-import { POSTS_ENTITY_NAME } from '../../utils/constants';
+import { SyncEntity } from './sync.entity';
+
+import { POSTS_ENTITY_NAME } from 'utils/constants';
 
 @Entity(POSTS_ENTITY_NAME)
 export class PostEntity {
   @PrimaryGeneratedColumn('increment')
-  id: string;
+  id: number;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP', nullable: false })
+  @CreateDateColumn({ type: 'timestamp', nullable: false })
   createdAtTime: number;
 
   @Column({ type: 'char', length: 48, nullable: false })
@@ -29,8 +31,12 @@ export class PostEntity {
   title?: string;
 
   @Column({ type: 'varchar', nullable: true })
-  syncedBlock?: string;
+  syncBlockId?: string;
 
   @Column({ type: 'varchar', nullable: true })
-  syncedContentId?: string;
+  syncContentId?: string;
+
+  @ManyToOne(() => SyncEntity, { eager: true })
+  @JoinTable()
+  syncBlock: SyncEntity;
 }

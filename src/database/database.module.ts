@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
 import { PostEntity } from './entities/post.entity';
+import { SyncEntity } from './entities/sync.entity';
 
 import { POSTGRES, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USERNAME, POSTGRES_PASSWORD, POSTGRES_DATABASE } from 'utils/constants';
 
@@ -17,7 +18,7 @@ import { POSTGRES, POSTGRES_HOST, POSTGRES_PORT, POSTGRES_USERNAME, POSTGRES_PAS
         username: configService.get(POSTGRES_USERNAME),
         password: configService.get(POSTGRES_PASSWORD),
         database: configService.get(POSTGRES_DATABASE),
-        entities: [PostEntity],
+        entities: [PostEntity, SyncEntity],
         synchronize: true, // shouldn't be used in production but this api is too cool to follow the rules
       }),
       inject: [ConfigService],

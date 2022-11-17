@@ -6,9 +6,11 @@ import { PostDto } from './dto/post.dto';
 
 import { PostsService } from './posts.service';
 
+import { POST_MUTATION_FIELD } from 'utils/constants';
+
 @Resolver(() => PostModel)
 export class PostsResolver {
-  constructor(private readonly postsService: PostsService) { }
+  constructor(private readonly postsService: PostsService) {}
 
   @Query(() => [PostModel])
   findAll(): Promise<PostModel[]> {
@@ -16,7 +18,7 @@ export class PostsResolver {
   }
 
   @Mutation(() => PostModel)
-  create(@Args('post') postDto: PostDto): Promise<PostModel> {
+  create(@Args(POST_MUTATION_FIELD) postDto: PostDto): Promise<PostModel> {
     return this.postsService.create(postDto);
   }
 }

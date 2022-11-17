@@ -1,9 +1,11 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
+import { SyncModel } from '../../sync/models/sync.model';
+
 @ObjectType()
 export class PostModel {
   @Field(() => ID)
-  id: string;
+  id: number;
 
   @Field(() => Number, { nullable: false })
   createdAtTime: number;
@@ -27,8 +29,11 @@ export class PostModel {
   title?: string;
 
   @Field(() => String, { nullable: true })
-  syncedBlock?: string;
+  syncBlockId?: string;
 
   @Field(() => String, { nullable: true })
-  syncedContentId?: string;
+  syncContentId?: string;
+
+  @Field(() => SyncModel, { nullable: true })
+  syncBlock?: SyncModel;
 }
